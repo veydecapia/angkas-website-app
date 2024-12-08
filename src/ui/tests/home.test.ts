@@ -16,12 +16,16 @@ test.describe('Home Page Tests', () => {
     expect(isLoggedIn).toBe(true);
   });
 
-  test('verify all default menu items are visible', async ({ page }) => {
-    const homePage = new HomePage(page);
-    await homePage.navigateTo('/');
+  test(
+    'verify all default menu items are visible',
+    { tag: '@Smoke' },
+    async ({ page }) => {
+      const homePage = new HomePage(page);
+      await homePage.navigateTo('/');
 
-    // Check if all default menu items are visible
-    const isMenuVisible = await homePage.isDefaultMenuVisible();
-    expect(isMenuVisible).toBe(true);
-  });
+      // Check if all default menu items are visible
+      const isMenuVisible = await homePage.isDefaultMenuVisible();
+      expect(isMenuVisible).toBe(true);
+    }
+  );
 });

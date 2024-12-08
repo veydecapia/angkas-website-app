@@ -39,13 +39,14 @@ export class BasePage {
     const menuItems = json.menuItems;
 
     const menuItemsVisible = await Promise.all(
-      menuItems.map(
-        async (item: string) =>
-          await this.page
-            .waitForSelector(`text=${item}`, { timeout: 5000 })
-            .then(() => true)
-            .catch(() => false)
-      )
+      menuItems.map(async (item: string) => {
+        try {
+          await this.page.waitForSelector(`text=${item}`, { timeout: 5000 });
+          return true;
+        } catch {
+          return false;
+        }
+      })
     );
 
     return menuItemsVisible.every((visible) => visible);
