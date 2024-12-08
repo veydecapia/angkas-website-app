@@ -1,0 +1,34 @@
+{
+  "name": "angkas-website-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "debug": "npx playwright test --debug",
+    "test": "echo %NODE_ENV% && npx playwright test ./src",
+    "test:local": "cross-env NODE_ENV='local' npm run test",
+    "test:dev": "cross-env NODE_ENV='dev' npm run test",
+    "test:qa": "cross-env NODE_ENV='qa' npm run test",
+    "test:uat": "cross-env NODE_ENV='uat' npm run test",
+    "test:prod": "cross-env NODE_ENV='prod' npm run test"
+  },
+  "keywords": [],
+  "author": "Harvey Decapia",
+  "license": "ISC",
+  "description": "This is for testing angkas admin portal",
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "eslint": "^9.16.0",
+    "prettier": "^3.4.2"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "dotenv": "^16.4.7",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.1"
+  }
+}
