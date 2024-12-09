@@ -17,7 +17,7 @@ export class TripsPage extends BasePage {
     );
   }
 
-  async goToTripsScreen() {
+  async goToPage() {
     await this.tripsMenu.click();
   }
 

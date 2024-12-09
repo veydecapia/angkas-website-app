@@ -34,6 +34,8 @@ export default defineConfig({
     video: 'on-first-retry',
     // Reuse the saved authentication state
     storageState: 'authState.json',
+    // Configure the size of the browser
+    viewport: { width: 1920, height: 1080 },
   },
   /* Configure projects for major browsers */
   projects: [
