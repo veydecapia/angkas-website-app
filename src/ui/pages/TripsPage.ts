@@ -24,7 +24,7 @@ export class TripsPage extends BasePage {
     await this.tripsMenu.click();
   }
 
-  async searchTrip(tripId: string) {
+  async searchTrip(tripId: string): Promise<Page> {
     await this.tripIdTxtbox.fill(tripId);
 
     await this.page.keyboard.down('Enter');
@@ -35,11 +35,7 @@ export class TripsPage extends BasePage {
     return newTab;
   }
 
-  async isTripIdCorrect(newTab: Page, tripId: string) {
-    const tripRequestIdElement = await newTab.waitForSelector('p.font-mono', {
-      timeout: 10000,
-    });
-    const tripRequestId = await tripRequestIdElement.textContent();
-    return tripRequestId === tripId;
+  async getTripId(newTab: Page): Promise<string | null> {
+    return newTab.locator('p.font-mono').textContent() ?? '';
   }
 }
