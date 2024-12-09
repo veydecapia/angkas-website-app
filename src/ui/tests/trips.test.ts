@@ -14,10 +14,24 @@ test.describe('Trips Page Tests', () => {
     async ({ page }) => {
       const tripsPage = new TripsPage(page);
 
-      const tripId = '2l061jqilSPdHgJj5PODBmNyGQQ';
+      const tripId = '2piSA16GyVkSZJntZ38CYpikRb0';
       const newTab = await tripsPage.searchTrip(tripId);
 
       expect(await tripsPage.isTripIdCorrect(newTab, tripId)).toBe(true);
+    }
+  );
+
+  test.skip(
+    'verify trip details',
+    { tag: ['@Smoke', '@Regression'] },
+    async ({ page }) => {
+      const tripsPage = new TripsPage(page);
+
+      const tripId = '2piSA16GyVkSZJntZ38CYpikRb0';
+      const newTab = await tripsPage.searchTrip(tripId);
+      const isCorrectTrip = await tripsPage.isTripIdCorrect(newTab, tripId);
+
+      expect(isCorrectTrip).toBe(true);
     }
   );
 
@@ -27,7 +41,7 @@ test.describe('Trips Page Tests', () => {
     async ({ page }) => {
       const tripsPage = new TripsPage(page);
 
-      const tripId = '2l061jqilSPdHgJj5PODBmNyGQQ';
+      const tripId = '123456abcdef';
       const newTab = await tripsPage.searchTrip(tripId);
       const isCorrectTrip = await tripsPage.isTripIdCorrect(newTab, tripId);
 

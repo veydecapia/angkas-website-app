@@ -9,7 +9,7 @@ test.describe('Home Page Tests', () => {
     await homePage.navigateTo('/');
   });
 
-  test.afterEach(async ({ page }) => {
+  test.afterEach(async ({}) => {
     await homePage.navigateTo('/');
   });
 
@@ -21,9 +21,9 @@ test.describe('Home Page Tests', () => {
     }
   );
 
-  test.skip('verify user logged in', async () => {
-    const isLoggedIn = await homePage.isLoggedIn();
-    expect(isLoggedIn).toBe(true);
+  test('verify user logged in', async () => {
+    await expect(homePage.loginWithGoogleBtn).toBeHidden();
+    await expect(homePage.welcomePage).toBeVisible({ timeout: 10000 });
   });
 
   test(
