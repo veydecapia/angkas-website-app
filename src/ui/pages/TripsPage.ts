@@ -10,6 +10,7 @@ export class TripsPage extends BasePage {
   constructor(page: Page) {
     super(page); // Pass the 'page' argument to the super() call
     this.page = page;
+
     this.tripIdTxtbox = page.getByPlaceholder(
       'Enter a Trip ID here to quickly view a trip...'
     );
@@ -19,8 +20,11 @@ export class TripsPage extends BasePage {
     );
   }
 
-  async searchTrip(tripId: string) {
+  async goToTripsScreen() {
     await this.tripsMenu.click();
+  }
+
+  async searchTrip(tripId: string) {
     await this.tripIdTxtbox.fill(tripId);
 
     await this.page.keyboard.down('Enter');
