@@ -1,7 +1,8 @@
+import { Page as PlaywrightPage } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class HomePage extends BasePage {
-  async clickElement(selector: string) {
-    await this.page.click(selector);
+  constructor(page: PlaywrightPage) {
+    super(page);
   }
 }

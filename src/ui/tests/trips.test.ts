@@ -17,8 +17,8 @@ test.describe('Trips Page Tests', () => {
       const tripId = '2piSA16GyVkSZJntZ38CYpikRb0';
       const newTab = await tripsPage.searchTrip(tripId);
 
-      //Compare tripId to the tripId displayed in the new tab
-      expect(await tripsPage.getTripId(newTab)).toBe(tripId);
+      //Check if the same tripId is visible
+      await expect(await tripsPage.tripsIdLabel(newTab, tripId)).toBeVisible();
     }
   );
 

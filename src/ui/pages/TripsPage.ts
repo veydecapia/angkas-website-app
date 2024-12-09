@@ -1,15 +1,12 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page as PlaywrightPage } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class TripsPage extends BasePage {
-  readonly page: Page;
   readonly tripIdTxtbox: Locator;
-
   readonly tripsMenu: Locator;
 
-  constructor(page: Page) {
+  constructor(page: PlaywrightPage) {
     super(page); // Pass the 'page' argument to the super() call
-    this.page = page;
 
     this.tripIdTxtbox = page.getByPlaceholder(
       'Enter a Trip ID here to quickly view a trip...'
@@ -24,9 +21,8 @@ export class TripsPage extends BasePage {
     await this.tripsMenu.click();
   }
 
-  async searchTrip(tripId: string): Promise<Page> {
+  async searchTrip(tripId: string): Promise<PlaywrightPage> {
     await this.tripIdTxtbox.fill(tripId);
-
     await this.page.keyboard.down('Enter');
     const pagePromise = this.page.waitForEvent('popup');
     const newTab = await pagePromise;
@@ -35,7 +31,7 @@ export class TripsPage extends BasePage {
     return newTab;
   }
 
-  async getTripId(newTab: Page): Promise<string | null> {
-    return newTab.locator('p.font-mono').textContent() ?? '';
+  async tripsIdLabel(newTab: PlaywrightPage, tripId: string): Promise<Locator> {
+    return newTab.locator('p.font-mono:has-text("' + tripId + '")');
   }
 }
