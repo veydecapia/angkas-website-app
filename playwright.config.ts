@@ -3,18 +3,20 @@ import * as dotenv from 'dotenv';
 dotenv.config({ path: `./environments/.env.${process.env.ENV || 'dev'}` });
 
 export default defineConfig({
-  testDir: './src',
+  testDir: './src/ui/tests',
   /* Maximum time one test can run for. */
   timeout: 60 * 1000,
+  repeatEach: 3,
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
      * For example in `await expect(locator).toHaveText();`
      */
-    timeout: 5000,
+    timeout: 10 * 1000,
   },
   /* Run tests in files in parallel */
   fullyParallel: true,
+  reporter: [['list'], ['html', { outputFolder: 'test-results' }]],
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   retries: 2,
@@ -48,5 +50,4 @@ export default defineConfig({
       },
     },
   ],
-  reporter: [['list'], ['html', { outputFolder: 'test-results' }]],
 });

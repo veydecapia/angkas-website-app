@@ -26,7 +26,13 @@ export class TripsPage extends BasePage {
     await this.page.keyboard.down('Enter');
     const pagePromise = this.page.waitForEvent('popup');
     const newTab = await pagePromise;
-    await newTab.waitForLoadState('load');
+
+    await newTab.waitForLoadState('networkidle', { timeout: 10 * 1000 });
+
+    //Wait for the trips detail page to load by waiting for the tripId to be visible
+    await (
+      await this.tripsIdLabel(newTab, tripId)
+    ).waitFor({ state: 'visible', timeout: 10 * 1000 });
 
     return newTab;
   }

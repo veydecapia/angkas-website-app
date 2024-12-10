@@ -7,6 +7,7 @@ export class CustomersPage extends BasePage {
   readonly customerTextBoxEditable: Locator;
   readonly applyFilterButton: Locator;
   readonly firstRowcellPhone: Locator;
+  readonly customerPhoneNumber: Locator;
 
   constructor(page: PlaywrightPage) {
     super(page);
@@ -17,6 +18,8 @@ export class CustomersPage extends BasePage {
     this.customerTextBoxEditable = page.locator('#rc_select_5');
     this.applyFilterButton = page.getByRole('button', { name: 'Apply Filter' });
     this.firstRowcellPhone = page.getByRole('cell', { name: '+' }).first();
+
+    this.customerPhoneNumber = page.getByText('Phone Number', { exact: true });
   }
 
   async goToPage() {
@@ -29,9 +32,17 @@ export class CustomersPage extends BasePage {
     await this.page.keyboard.down('Enter');
     await this.applyFilterButton.click();
     await this.firstRowcellPhone.click();
+
+    await this.page.waitForLoadState('networkidle', { timeout: 10 * 1000 });
+
+    // Wait for the customer details page to load by waiting the phone number to be visible
+    await this.page
+      .getByText('+' + phoneNumber, { exact: true })
+      .first()
+      .waitFor({ state: 'visible', timeout: 10 * 1000 });
   }
 
   async customerNameLabel(customerName: string): Promise<Locator> {
-    return this.page.getByText(customerName);
+    return this.page.getByText(customerName, { exact: true }).nth(1);
   }
 }

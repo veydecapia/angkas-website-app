@@ -16,7 +16,7 @@ test.describe('Customers Page Tests', () => {
     async () => {
       await customersPage.searchByPhoneNumber('639055190600');
 
-      //Check if name is displayed.
+      //Check if correct name is displayed.
       await expect(
         await customersPage.customerNameLabel('Harvey Decapia')
       ).toBeVisible();
@@ -24,7 +24,7 @@ test.describe('Customers Page Tests', () => {
   );
 
   test(
-    'verify customer detail',
+    'verify customer detail page',
     { tag: ['@Smoke', '@Regression'] },
     async ({ page }) => {
       await customersPage.searchByPhoneNumber('639055190600');
