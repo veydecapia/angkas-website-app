@@ -6,6 +6,8 @@ export default defineConfig({
   testDir: './src/ui/tests',
   /* Maximum time one test can run for. */
   timeout: 60 * 1000,
+
+  /* Run each test 3 times to check for flaky test */
   repeatEach: 3,
   expect: {
     /**
@@ -16,7 +18,10 @@ export default defineConfig({
   },
   /* Run tests in files in parallel */
   fullyParallel: true,
-  reporter: [['list'], ['html', { outputFolder: 'test-results' }]],
+  reporter: [
+    ['list'],
+    ['allure-playwright'],
+  ],
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   retries: 2,
@@ -32,12 +37,16 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('/')`. */
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-all-retries',
+    // trace: 'on',
     // Record video only when retrying a test for the first time.
     video: 'retain-on-failure',
+    // video: 'on',
     // Reuse the saved authentication state
     storageState: 'authState.json',
     // Configure the size of the browser
     viewport: { width: 1920, height: 1080 },
+    // Take a screenshot only when there's a failure
+    screenshot: 'only-on-failure',
   },
   /* Configure projects for major browsers */
   projects: [

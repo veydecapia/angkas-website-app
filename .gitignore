@@ -67,3 +67,10 @@ build/
 *.cer
 *.crt
 *.der
+
+# Allure report directories
+allure-results/
+allure-report/
+
+# json reportts
+jsonReports/
