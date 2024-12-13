@@ -19,8 +19,8 @@ export class BasePage extends Page {
 
   constructor(page: PlaywrightPage) {
     super(page);
-    this.welcomePage = page.locator('text=Welcome to the Angkas Admin');
-    this.loginWithGoogleBtn = page.locator('text=Login with Google');
+    this.welcomePage = page.getByText('Welcome to the Angkas Admin');
+    this.loginWithGoogleBtn = page.getByText('Login with Google');
   }
 
   async navigateTo(url: string) {

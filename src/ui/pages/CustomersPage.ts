@@ -31,9 +31,10 @@ export class CustomersPage extends BasePage {
     await this.customerTextBoxEditable.fill(phoneNumber);
     await this.page.keyboard.down('Enter');
     await this.applyFilterButton.click();
-    await this.firstRowcellPhone.click();
 
+    // Wait for apply filter to complete before clicking first row
     await this.page.waitForLoadState('networkidle', { timeout: 10 * 1000 });
+    await this.firstRowcellPhone.click();
 
     // Wait for the customer details page to load by waiting the phone number to be visible
     await this.page
@@ -44,5 +45,10 @@ export class CustomersPage extends BasePage {
 
   async customerNameLabel(customerName: string): Promise<Locator> {
     return this.page.getByText(customerName, { exact: true }).nth(1);
+  }
+
+  //TODO: Add table manipulation methods to get the customer table data
+  async customerFirstRow(): Promise<Locator> {
+    return this.firstRowcellPhone;
   }
 }

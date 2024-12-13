@@ -28,12 +28,12 @@ export default defineConfig({
     baseURL: process.env.BASE_URL,
     headless: true,
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-    actionTimeout: 0,
+    actionTimeout: 5 * 1000,
     /* Base URL to use in actions like `await page.goto('/')`. */
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'on-all-retries',
     // Record video only when retrying a test for the first time.
-    video: 'on-first-retry',
+    video: 'retain-on-failure',
     // Reuse the saved authentication state
     storageState: 'authState.json',
     // Configure the size of the browser

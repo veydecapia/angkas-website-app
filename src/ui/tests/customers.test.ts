@@ -30,7 +30,22 @@ test.describe('Customers Page Tests', () => {
       await customersPage.searchByPhoneNumber('639055190600');
 
       //Take a screenshot and compare with the baseline
-      await expect(page).toHaveScreenshot('customer-details.png');
+      await expect(page).toHaveScreenshot({
+        fullPage: true,
+        animations: 'disabled',
+        scale: 'device',
+      });
+    }
+  );
+
+  test.skip(
+    'verify customer filter by phone number',
+    { tag: ['@Smoke', '@Regression'] },
+    async () => {
+      await customersPage.searchByPhoneNumber('639055190600');
+
+      //Check if correct filter is applied.
+      
     }
   );
 });
