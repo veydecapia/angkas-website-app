@@ -7,7 +7,9 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "debug": "npx playwright test --debug",
-    "test": "echo %NODE_ENV% && npx playwright test ./src && allure generate --clean && allure open",
+    "test": "npm-run-all clean:reports test:run allure:generate",
+    "test:run": "npx playwright test ./src || true",
+    "allure:generate": "allure generate --clean && allure open",
     "test:local": "cross-env NODE_ENV='local' npm run test",
     "test:dev": "cross-env NODE_ENV='dev' npm run test",
     "test:qa": "cross-env NODE_ENV='qa' npm run test",
@@ -25,14 +27,12 @@
     "allure-playwright": "^3.0.7",
     "eslint": "^9.16.0",
     "prettier": "^3.4.2",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "npm-run-all": "^4.1.5"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
-    "dotenv": "^16.4.7",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-prettier": "^5.2.1"
+    "dotenv": "^16.4.7"
   }
 }

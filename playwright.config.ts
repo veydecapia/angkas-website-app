@@ -18,10 +18,9 @@ export default defineConfig({
   },
   /* Run tests in files in parallel */
   fullyParallel: true,
-  reporter: [
-    ['list'],
-    ['allure-playwright'],
-  ],
+  reporter: [['list'], ['allure-playwright']],
+  snapshotPathTemplate:
+    '{testDir}/baseline_screenshots/{testFilePath}/{arg}{ext}',
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   retries: 2,
