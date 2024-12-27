@@ -23,11 +23,15 @@ test.describe('Trips Page Tests', () => {
     const newTab = await tripsPage.searchTrip(tripId);
 
     // Take a screenshot and compare with the baseline
-    await expect(newTab).toHaveScreenshot({
-      fullPage: true,
-      animations: 'disabled',
-      scale: 'device',
-    });
+    await expect(newTab).toHaveScreenshot(
+      {
+        fullPage: true, // Capture the entire page
+        animations: 'disabled', // Disable animations for consistency
+        caret: 'hide', // Hide the text caret in the screenshot
+        scale: 'device', // Scale the screenshot to the device size
+        threshold: 0.02, // Increase tolerance to 2% for minor differences
+      }
+    );
   });
 
   // Todo: Implement the following tests

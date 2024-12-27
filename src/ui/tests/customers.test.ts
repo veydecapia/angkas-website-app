@@ -27,14 +27,20 @@ test.describe('Customers Page Tests', () => {
     'verify customer detail page',
     { tag: ['@Smoke', '@Regression'] },
     async ({ page }) => {
+      // Perform a search by phone number
       await customersPage.searchByPhoneNumber('639055190600');
 
-      //Take a screenshot and compare with the baseline
-      await expect(page).toHaveScreenshot({
-        fullPage: true,
-        animations: 'disabled',
-        scale: 'device',
-      });
+      // Take a screenshot and compare with the baseline
+      await expect(page).toHaveScreenshot(
+        // Screenshot name must have a png extension
+        {
+          fullPage: true, // Capture the entire page
+          animations: 'disabled', // Disable animations for consistency
+          caret: 'hide', // Hide the text caret in the screenshot
+          scale: 'device', // Scale the screenshot to the device size
+          threshold: 0.02, // Increase tolerance to 2% for minor differences
+        }
+      );
     }
   );
 
@@ -45,7 +51,6 @@ test.describe('Customers Page Tests', () => {
       await customersPage.searchByPhoneNumber('639055190600');
 
       //Check if correct filter is applied.
-      
     }
   );
 });

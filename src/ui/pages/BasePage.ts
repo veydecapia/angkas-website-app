@@ -1,6 +1,6 @@
 import { type Locator, type Page as PlaywrightPage } from '@playwright/test';
 import * as path from 'path';
-import { readJsonFile } from 'utils/utils';
+import { readJsonFile } from 'utils/helper';
 
 export abstract class PageObject {
   constructor(public readonly host: Locator) {}
