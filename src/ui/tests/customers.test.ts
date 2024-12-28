@@ -39,7 +39,7 @@ test.describe('Customers Page Tests', () => {
           caret: 'hide', // Hide the text caret in the screenshot
           scale: 'device', // Scale the screenshot to the device size
           maxDiffPixelRatio: 0.01, // Allow up to 1% of the image to differ
-          threshold: 0.2,// Ignore small color differences per pixel
+          threshold: 0.2, // Ignore small color differences per pixel
         }
       );
     }

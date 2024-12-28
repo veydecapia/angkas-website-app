@@ -6,7 +6,7 @@ import { chromium } from 'playwright';
   const page = await context.newPage();
 
   // Navigate to the login page
-  await page.goto('http://localhost:3000/');
+  await page.goto('https://uat.aap.angkas.com/');
 
   // Perform login actions manually
   console.log('Please log in manually to bypass CAPTCHA');

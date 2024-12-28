@@ -45,7 +45,7 @@ export default defineConfig({
     // Configure the size of the browser
     viewport: { width: 1920, height: 1080 },
     // Consistent scaling
-    deviceScaleFactor: 1, 
+    deviceScaleFactor: 1,
     // Take a screenshot only when there's a failure
     screenshot: 'only-on-failure',
   },
