@@ -15,7 +15,7 @@ export class CustomersPage extends BasePage {
       'span.ant-menu-title-content:has-text("Customers")'
     );
     this.customerTextBox = page.locator('.ant-select-selection-overflow');
-    this.customerTextBoxEditable = page.locator('#rc_select_5');
+    this.customerTextBoxEditable = page.locator('#rc_select_1');
     this.applyFilterButton = page.getByRole('button', { name: 'Apply Filter' });
     this.firstRowcellPhone = page.getByRole('cell', { name: '+' }).first();
 
