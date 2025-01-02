@@ -26,6 +26,10 @@ export class CustomersPage extends BasePage {
     await this.customersMenu.click();
   }
 
+  async customerNameLabel(customerName: string): Promise<Locator> {
+    return this.page.getByText(customerName, { exact: true }).nth(1);
+  }
+
   async searchByPhoneNumber(phoneNumber: string) {
     await this.customerTextBox.click();
     await this.customerTextBoxEditable.fill(phoneNumber);
@@ -34,17 +38,29 @@ export class CustomersPage extends BasePage {
 
     // Wait for apply filter to complete before clicking first row
     await this.page.waitForLoadState('networkidle', { timeout: 10 * 1000 });
+  }
+
+  async waitForCustomerDetailsPage(text: string) {
     await this.firstRowcellPhone.click();
 
-    // Wait for the customer details page to load by waiting the phone number to be visible
+    // Wait for the customer details page to load by waiting for the phone number to be visible
     await this.page
-      .getByText('+' + phoneNumber, { exact: true })
+      .getByText(text, { exact: false })
       .first()
       .waitFor({ state: 'visible', timeout: 10 * 1000 });
   }
 
-  async customerNameLabel(customerName: string): Promise<Locator> {
-    return this.page.getByText(customerName, { exact: true }).nth(1);
+  async searchByFirstName(firstName: string) {
+    await this.customerTextBox.click();
+    await this.customerTextBoxEditable.fill(firstName);
+    await this.applyFilterButton.click();
+
+    // Wait for apply filter to complete before clicking first row
+    await this.page.waitForLoadState('networkidle', { timeout: 10 * 1000 });
+  }
+
+  async getNumberOfRowsInATable(): Promise<Locator> {
+    return this.page.locator('tbody tr');
   }
 
   //TODO: Add table manipulation methods to get the customer table data

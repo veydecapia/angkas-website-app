@@ -11,10 +11,12 @@ test.describe('Customers Page Tests', () => {
   });
 
   test(
-    'verify customers page',
+    'customer detail - verify customers page',
     { tag: ['@Smoke', '@Regression'] },
     async () => {
-      await customersPage.searchByPhoneNumber('639055190600');
+      const phoneNumber = '639055190600';
+      await customersPage.searchByPhoneNumber(phoneNumber);
+      await customersPage.waitForCustomerDetailsPage(phoneNumber);
 
       //Check if correct name is displayed.
       await expect(
@@ -24,11 +26,13 @@ test.describe('Customers Page Tests', () => {
   );
 
   test(
-    'verify customer detail page',
+    'customer detail - verify customer detail page',
     { tag: ['@Smoke', '@Regression'] },
     async ({ page }) => {
       // Perform a search by phone number
-      await customersPage.searchByPhoneNumber('639055190600');
+      const phoneNumber = '639055190600';
+      await customersPage.searchByPhoneNumber(phoneNumber);
+      await customersPage.waitForCustomerDetailsPage(phoneNumber);
 
       // Take a screenshot and compare with the baseline
       await expect(page).toHaveScreenshot(
@@ -45,8 +49,39 @@ test.describe('Customers Page Tests', () => {
     }
   );
 
-  test.skip(
-    'verify customer filter by phone number',
+  // Todo: Implement the following tests
+  test(
+    'customer detail - verify customer detail by phone number',
+    { tag: ['@Smoke', '@Regression'] },
+    async () => {
+      const phoneNumber = '639055190600';
+      await customersPage.searchByPhoneNumber(phoneNumber);
+      await customersPage.waitForCustomerDetailsPage(phoneNumber);
+
+      //Check correct name is displayed
+      await expect(
+        await customersPage.customerNameLabel('Harvey Decapia')
+      ).toBeVisible();
+    }
+  );
+
+  test(
+    'filter - verify customer filter by phone number',
+    { tag: ['@Smoke', '@Regression'] },
+    async () => {
+      const phoneNumber = '639055190600';
+      await customersPage.searchByPhoneNumber(phoneNumber);
+
+      //Check if correct filter is applied by checking the first row phone number is displayed
+      await expect(customersPage.firstRowcellPhone).toHaveText('+' + phoneNumber);
+
+      //Check if only one row is displayed. 
+      expect(await customersPage.getNumberOfRowsInATable()).toHaveCount(2);
+    }
+  );
+
+  test.only(
+    'filter - verify customer filter by first name',
     { tag: ['@Smoke', '@Regression'] },
     async () => {
       await customersPage.searchByPhoneNumber('639055190600');
@@ -54,4 +89,76 @@ test.describe('Customers Page Tests', () => {
       //Check if correct filter is applied.
     }
   );
+
+  test.skip(
+    'verify customer filter by last name',
+    { tag: ['@Smoke', '@Regression'] },
+    async () => {
+      await customersPage.searchByPhoneNumber('639055190600');
+
+      //Check if correct filter is applied.
+    }
+  );
+
+  test.skip(
+    'verify customer filter by email',
+    { tag: ['@Regression'] },
+    async () => {
+      await customersPage.searchByPhoneNumber('639055190600');
+
+      //Check if correct filter is applied.
+    }
+  );
+
+  test.skip(
+    'verify customer filter by customer id',
+    { tag: ['@Regression'] },
+    async () => {
+      await customersPage.searchByPhoneNumber('639055190600');
+
+      //Check if correct filter is applied.
+    }
+  );
+
+  test.skip(
+    'verify customer filter by internal id',
+    { tag: ['@Regression'] },
+    async () => {
+      await customersPage.searchByPhoneNumber('639055190600');
+
+      //Check if correct filter is applied.
+    }
+  );
+
+  test.skip(
+    'verify customer filter by status',
+    { tag: ['@Regression'] },
+    async () => {
+      await customersPage.searchByPhoneNumber('639055190600');
+
+      //Check if correct filter is applied.
+    }
+  );
+
+  test.skip(
+    'verify customer filter by service zone',
+    { tag: ['@Regression'] },
+    async () => {
+      await customersPage.searchByPhoneNumber('639055190600');
+
+      //Check if correct filter is applied.
+    }
+  );
+
+  test.skip(
+    'verify customer filter by phone number/status/service zone combination',
+    { tag: ['@Regression'] },
+    async () => {
+      await customersPage.searchByPhoneNumber('639055190600');
+
+      //Check if correct filter is applied.
+    }
+  );
+
+
 });
