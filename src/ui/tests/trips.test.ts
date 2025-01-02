@@ -11,7 +11,7 @@ test.describe('Trips Page Tests', () => {
   });
 
   test('verify valid trip', { tag: ['@Smoke', '@Regression'] }, async () => {
-    const tripId = '2piSA16GyVkSZJntZ38CYpikRb0';
+    const tripId = process.env.VALID_TRIP_ID?.toString() ?? '';
     const newTab = await tripsPage.searchTrip(tripId);
 
     // Check if the same tripId is visible
@@ -19,7 +19,7 @@ test.describe('Trips Page Tests', () => {
   });
 
   test('verify trip details', { tag: ['@Smoke', '@Regression'] }, async () => {
-    const tripId = '2piSA16GyVkSZJntZ38CYpikRb0';
+    const tripId = process.env.VALID_TRIP_ID?.toString() ?? '';
     const newTab = await tripsPage.searchTrip(tripId);
 
     // Take a screenshot and compare with the baseline

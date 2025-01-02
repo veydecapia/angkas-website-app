@@ -11,11 +11,11 @@
     "test:run": "npx playwright test ./src || true",
     "allure:generate": "allure generate --clean && allure open",
     "clean:reports": "rimraf allure-results allure-report playwright-report",
-    "test:local": "cross-env NODE_ENV='local' npm run test",
-    "test:dev": "cross-env NODE_ENV='dev' npm run test",
-    "test:qa": "cross-env NODE_ENV='qa' npm run test",
-    "test:uat": "cross-env NODE_ENV='uat' npm run test",
-    "test:prod": "cross-env NODE_ENV='prod' npm run test"
+    "test:local": "cross-env ENV='local' npm run test",
+    "test:dev": "cross-env ENV='dev' npm run test",
+    "test:test": "cross-env ENV='test' npm run test",
+    "test:uat": "cross-env ENV='uat' npm run test",
+    "test:prod": "cross-env ENV='prod' npm run test"
   },
   "keywords": [],
   "author": "Harvey Decapia",
