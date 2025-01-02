@@ -17,7 +17,7 @@ node_modules
 /dist
 
 # keep secrets local
-environments/
+# environments/
 # removed for pipeline 
 package-lock.json
 
