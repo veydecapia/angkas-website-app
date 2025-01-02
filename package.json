@@ -11,6 +11,7 @@
     "test:run": "npx playwright test ./src || true",
     "allure:generate": "allure generate --clean && allure open",
     "clean:reports": "rimraf allure-results allure-report playwright-report",
+    "update-snapshots": "npx playwright test --update-snapshots",
     "test:local": "cross-env ENV='local' npm run test",
     "test:dev": "cross-env ENV='dev' npm run test",
     "test:test": "cross-env ENV='test' npm run test",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@playwright/test": "^1.49.1",
     "allure-commandline": "^2.32.0",
+    "allure-js-commons": "^3.0.7",
     "allure-playwright": "^3.0.7",
     "cross-env": "^7.0.3",
     "eslint": "^9.16.0",
