@@ -1,6 +1,11 @@
 import { defineConfig } from '@playwright/test';
 import * as dotenv from 'dotenv';
-dotenv.config({ path: `./environments/.env.${process.env.ENV || 'test'}` });
+
+// Determine the environment and set the file path accordingly
+const env = process.env.ENV || 'test';
+
+// Load environment variables from .env file
+dotenv.config({ path: `./environments/.env.${env}` });
 
 export default defineConfig({
   testDir: './src/ui/tests',
@@ -41,7 +46,7 @@ export default defineConfig({
     video: 'retain-on-failure',
     // video: 'on',
     // Reuse the saved authentication state
-    storageState: 'authState.json',
+    storageState: `authState-${env}.json`,
     // Configure the size of the browser
     viewport: { width: 1920, height: 1080 },
     // Consistent scaling

@@ -74,3 +74,6 @@ allure-report/
 
 # json reportts
 jsonReports/
+
+# Session State
+authState-*.json
