@@ -8,6 +8,9 @@ export class CustomersPage extends BasePage {
   readonly applyFilterButton: Locator;
   readonly firstRowcellPhone: Locator;
   readonly customerPhoneNumber: Locator;
+  readonly searchByComboBox: Locator;
+  readonly customerFirstName: Locator;
+  
 
   constructor(page: PlaywrightPage) {
     super(page);
@@ -16,9 +19,11 @@ export class CustomersPage extends BasePage {
     );
     this.customerTextBox = page.locator('.ant-select-selection-overflow');
     this.customerTextBoxEditable = page.locator('#rc_select_1');
+    this.customerFirstName = page.getByPlaceholder('Enter search keyword...');
     this.applyFilterButton = page.getByRole('button', { name: 'Apply Filter' });
     this.firstRowcellPhone = page.getByRole('cell', { name: '+' }).first();
-
+    this.searchByComboBox = page.locator('.ant-select-selection-item[title="Phone Numbers"]');
+    // this.searchByComboBox = page.getByRole('combobox').locator('')
     this.customerPhoneNumber = page.getByText('Phone Number', { exact: true });
   }
 
@@ -51,20 +56,15 @@ export class CustomersPage extends BasePage {
   }
 
   async searchByFirstName(firstName: string) {
-    await this.customerTextBox.click();
-    await this.customerTextBoxEditable.fill(firstName);
+    //Click search by first name
+    await this.selectItemFromComboBox(this.searchByComboBox, 'First Name');
+
+    await this.customerFirstName.click();
+    await this.customerFirstName.fill(firstName);
     await this.applyFilterButton.click();
 
     // Wait for apply filter to complete before clicking first row
     await this.page.waitForLoadState('networkidle', { timeout: 10 * 1000 });
   }
 
-  async getNumberOfRowsInATable(): Promise<Locator> {
-    return this.page.locator('tbody tr');
-  }
-
-  //TODO: Add table manipulation methods to get the customer table data
-  async customerFirstRow(): Promise<Locator> {
-    return this.firstRowcellPhone;
-  }
 }

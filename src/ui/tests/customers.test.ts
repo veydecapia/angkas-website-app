@@ -76,17 +76,27 @@ test.describe('Customers Page Tests', () => {
       await expect(customersPage.firstRowcellPhone).toHaveText('+' + phoneNumber);
 
       //Check if only one row is displayed. 
-      expect(await customersPage.getNumberOfRowsInATable()).toHaveCount(2);
+      await expect(customersPage.tableRows).toHaveCount(1);
     }
   );
 
-  test.only(
+  test(
     'filter - verify customer filter by first name',
     { tag: ['@Smoke', '@Regression'] },
     async () => {
-      await customersPage.searchByPhoneNumber('639055190600');
+      const firstName = 'Harvey';
+      await customersPage.searchByFirstName(firstName);
+      
+      //Check if all the rows in the table displays exactly as the firstName
+      //Get the number of rows in the table
+      const rowCount = await customersPage.getNumberOfRowsInATable()
 
-      //Check if correct filter is applied.
+      // Loop through each row and check if the first name is displayed
+      const columnIndex = 3; // First name column index
+      for (let i = 0; i < rowCount.valueOf(); i++){
+        const cellLocator = await customersPage.getCellLocatorByRowAndColumn(i, columnIndex);
+        await expect(cellLocator).toHaveText(firstName);
+      }
     }
   );
 

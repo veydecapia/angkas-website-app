@@ -16,11 +16,13 @@ export abstract class Page {
 export class BasePage extends Page {
   public readonly welcomePage: Locator;
   public readonly loginWithGoogleBtn: Locator;
+  public readonly tableRows: Locator;
 
   constructor(page: PlaywrightPage) {
     super(page);
     this.welcomePage = page.getByText('Welcome to the Angkas Admin');
     this.loginWithGoogleBtn = page.getByText('Login with Google');
+    this.tableRows = page.locator('table tbody tr');
   }
 
   async navigateTo(url: string) {
@@ -54,4 +56,19 @@ export class BasePage extends Page {
 
     return menuItemsVisible.every((visible) => visible);
   }
+
+  async selectItemFromComboBox(comboBox: Locator, itemText: string) {
+    await comboBox.click();
+    const selector = this.page.getByTitle(itemText);
+    await selector.click();
+  }
+  
+  async getNumberOfRowsInATable(): Promise<Number> {
+    return this.tableRows.count();
+  }
+
+  async getCellLocatorByRowAndColumn(rowIndex: number, columnIndex: number): Promise<Locator> {
+    return this.tableRows.nth(rowIndex).locator(`td:nth-child(${columnIndex + 1})`);
+  }
+
 }
