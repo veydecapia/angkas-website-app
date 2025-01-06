@@ -106,7 +106,7 @@ test.describe('Customers Page Tests', () => {
       const lastName = 'Decapia';
       await customersPage.searchByText('Last Name', lastName);
       
-      //Check if all the rows in the table displays exactly as the firstName
+      //Check if all the rows in the table displays exactly as the lastName
       //Get the number of rows in the table
       const rowCount = await customersPage.getNumberOfRowsInATable()
 
@@ -123,29 +123,24 @@ test.describe('Customers Page Tests', () => {
     'verify customer filter by email',
     { tag: ['@Regression'] },
     async () => {
-      await customersPage.searchByPhoneNumber('639055190600');
+      const email = '';
+      await customersPage.searchByText('Email', email);
 
-      //Check if correct filter is applied.
+
     }
   );
 
-  test.skip(
-    'verify customer filter by customer id',
-    { tag: ['@Regression'] },
-    async () => {
-      await customersPage.searchByPhoneNumber('639055190600');
-
-      //Check if correct filter is applied.
-    }
-  );
-
-  test.skip(
+  test.only(
     'verify customer filter by internal id',
     { tag: ['@Regression'] },
     async () => {
-      await customersPage.searchByPhoneNumber('639055190600');
+      const internalId = process.env.CUSTOMER_INTERNAL_ID?.toString() ?? '';
+      await customersPage.searchByText('Internal ID', internalId);
 
-      //Check if correct filter is applied.
+      //Check if only one row is displayed. 
+      await expect(customersPage.tableRows).toHaveCount(1);
+
+      await expect(customersPage.firstRowCustomerInternalId).toBeVisible();
     }
   );
 

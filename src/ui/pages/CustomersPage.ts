@@ -10,6 +10,7 @@ export class CustomersPage extends BasePage {
   readonly customerPhoneNumber: Locator;
   readonly searchByComboBox: Locator;
   readonly customerTextBox: Locator;
+  readonly firstRowCustomerInternalId: Locator;
   
 
   constructor(page: PlaywrightPage) {
@@ -23,8 +24,8 @@ export class CustomersPage extends BasePage {
     this.applyFilterButton = page.getByRole('button', { name: 'Apply Filter' });
     this.firstRowcellPhone = page.getByRole('cell', { name: '+' }).first();
     this.searchByComboBox = page.locator('.ant-select-selection-item[title="Phone Numbers"]');
-    // this.searchByComboBox = page.getByRole('combobox').locator('')
     this.customerPhoneNumber = page.getByText('Phone Number', { exact: true });
+    this.firstRowCustomerInternalId = page.locator('.ant-table-cell.customer-id-cell').nth(1);
   }
 
   async goToPage() {
@@ -48,7 +49,7 @@ export class CustomersPage extends BasePage {
   async waitForCustomerDetailsPage(text: string) {
     await this.firstRowcellPhone.click();
 
-    // Wait for the customer details page to load by waiting for the phone number to be visible
+    // Wait for the customer details page to load by waiting for the text to appear
     await this.page
       .getByText(text, { exact: false })
       .first()
@@ -56,14 +57,13 @@ export class CustomersPage extends BasePage {
   }
 
   async searchByText(searchBy: string, itemText: string) {
-    //Click search by first name
     await this.selectItemFromComboBox(this.searchByComboBox, searchBy);
 
     await this.customerTextBox.click();
     await this.customerTextBox.fill(itemText);
     await this.applyFilterButton.click();
 
-    // Wait for apply filter to complete before clicking first row
+    // Wait for apply filter to complete
     await this.page.waitForLoadState('networkidle', { timeout: 10 * 1000 });
   }
 
