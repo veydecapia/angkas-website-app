@@ -3,13 +3,13 @@ import { Locator, Page as PlaywrightPage } from '@playwright/test';
 
 export class CustomersPage extends BasePage {
   readonly customersMenu: Locator;
-  readonly customerTextBox: Locator;
-  readonly customerTextBoxEditable: Locator;
+  readonly customerPhoneNumberTextBox: Locator;
+  readonly customerTextBoxPhoneNumberEditable: Locator;
   readonly applyFilterButton: Locator;
   readonly firstRowcellPhone: Locator;
   readonly customerPhoneNumber: Locator;
   readonly searchByComboBox: Locator;
-  readonly customerFirstName: Locator;
+  readonly customerTextBox: Locator;
   
 
   constructor(page: PlaywrightPage) {
@@ -17,9 +17,9 @@ export class CustomersPage extends BasePage {
     this.customersMenu = page.locator(
       'span.ant-menu-title-content:has-text("Customers")'
     );
-    this.customerTextBox = page.locator('.ant-select-selection-overflow');
-    this.customerTextBoxEditable = page.locator('#rc_select_1');
-    this.customerFirstName = page.getByPlaceholder('Enter search keyword...');
+    this.customerPhoneNumberTextBox = page.locator('.ant-select-selection-overflow');
+    this.customerTextBoxPhoneNumberEditable = page.locator('#rc_select_1');
+    this.customerTextBox = page.getByPlaceholder('Enter search keyword...');
     this.applyFilterButton = page.getByRole('button', { name: 'Apply Filter' });
     this.firstRowcellPhone = page.getByRole('cell', { name: '+' }).first();
     this.searchByComboBox = page.locator('.ant-select-selection-item[title="Phone Numbers"]');
@@ -36,8 +36,8 @@ export class CustomersPage extends BasePage {
   }
 
   async searchByPhoneNumber(phoneNumber: string) {
-    await this.customerTextBox.click();
-    await this.customerTextBoxEditable.fill(phoneNumber);
+    await this.customerPhoneNumberTextBox.click();
+    await this.customerTextBoxPhoneNumberEditable.fill(phoneNumber);
     await this.page.keyboard.down('Enter');
     await this.applyFilterButton.click();
 
@@ -55,12 +55,12 @@ export class CustomersPage extends BasePage {
       .waitFor({ state: 'visible', timeout: 10 * 1000 });
   }
 
-  async searchByFirstName(firstName: string) {
+  async searchByText(searchBy: string, itemText: string) {
     //Click search by first name
-    await this.selectItemFromComboBox(this.searchByComboBox, 'First Name');
+    await this.selectItemFromComboBox(this.searchByComboBox, searchBy);
 
-    await this.customerFirstName.click();
-    await this.customerFirstName.fill(firstName);
+    await this.customerTextBox.click();
+    await this.customerTextBox.fill(itemText);
     await this.applyFilterButton.click();
 
     // Wait for apply filter to complete before clicking first row

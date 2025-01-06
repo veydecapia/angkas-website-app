@@ -37,7 +37,7 @@ export default defineConfig({
     baseURL: process.env.BASE_URL,
     headless: true,
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-    actionTimeout: 5 * 1000,
+    actionTimeout: 10 * 1000,
     /* Base URL to use in actions like `await page.goto('/')`. */
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-all-retries',

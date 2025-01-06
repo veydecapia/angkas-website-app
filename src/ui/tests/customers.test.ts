@@ -49,7 +49,6 @@ test.describe('Customers Page Tests', () => {
     }
   );
 
-  // Todo: Implement the following tests
   test(
     'customer detail - verify customer detail by phone number',
     { tag: ['@Smoke', '@Regression'] },
@@ -85,7 +84,7 @@ test.describe('Customers Page Tests', () => {
     { tag: ['@Smoke', '@Regression'] },
     async () => {
       const firstName = 'Harvey';
-      await customersPage.searchByFirstName(firstName);
+      await customersPage.searchByText('First Name', firstName);
       
       //Check if all the rows in the table displays exactly as the firstName
       //Get the number of rows in the table
@@ -100,13 +99,23 @@ test.describe('Customers Page Tests', () => {
     }
   );
 
-  test.skip(
+  test(
     'verify customer filter by last name',
     { tag: ['@Smoke', '@Regression'] },
     async () => {
-      await customersPage.searchByPhoneNumber('639055190600');
+      const lastName = 'Decapia';
+      await customersPage.searchByText('Last Name', lastName);
+      
+      //Check if all the rows in the table displays exactly as the firstName
+      //Get the number of rows in the table
+      const rowCount = await customersPage.getNumberOfRowsInATable()
 
-      //Check if correct filter is applied.
+      // Loop through each row and check if the first name is displayed
+      const columnIndex = 4; // Last name column index
+      for (let i = 0; i < rowCount.valueOf(); i++){
+        const cellLocator = await customersPage.getCellLocatorByRowAndColumn(i, columnIndex);
+        await expect(cellLocator).toHaveText(lastName);
+      }
     }
   );
 
