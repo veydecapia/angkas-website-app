@@ -17,7 +17,7 @@ dotenv.config({ path: `./environments/.env.${env}` });
   if (!baseUrl) {
     throw new Error('BASE_URL is not defined in the environment variables');
   }
-  await page.goto(baseUrl);
+  await page.goto(baseUrl); 
 
   // Perform login actions manually
   console.log('Please log in manually to bypass CAPTCHA');

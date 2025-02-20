@@ -4,6 +4,7 @@ import { CustomersPage } from 'ui/pages/CustomersPage';
 test.describe('Customers Page Tests', () => {
   let customersPage: CustomersPage;
 
+  //TODO: Move outside to the test setup
   test.beforeEach(async ({ page }) => {
     customersPage = new CustomersPage(page);
     await customersPage.navigateTo('/');
@@ -70,12 +71,12 @@ test.describe('Customers Page Tests', () => {
     async () => {
       const phoneNumber = '639055190600';
       await customersPage.searchByPhoneNumber(phoneNumber);
+      
+      //Check if only one row is displayed. 
+      await expect(customersPage.tableRows).toHaveCount(1);
 
       //Check if correct filter is applied by checking the first row phone number is displayed
       await expect(customersPage.firstRowcellPhone).toHaveText('+' + phoneNumber);
-
-      //Check if only one row is displayed. 
-      await expect(customersPage.tableRows).toHaveCount(1);
     }
   );
 
@@ -130,7 +131,7 @@ test.describe('Customers Page Tests', () => {
     }
   );
 
-  test.only(
+  test(
     'verify customer filter by internal id',
     { tag: ['@Regression'] },
     async () => {
